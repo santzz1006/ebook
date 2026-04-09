@@ -1,74 +1,41 @@
 // responsividade.js
 (function() {
-    // Cria uma tag <style> dinamicamente
-    const estiloMobile = document.createElement('style');
-    
-    // Injeta as regras CSS de responsividade forçando a prioridade com !important
-    estiloMobile.innerHTML = `
-        @media (max-width: 850px) {
-            /* 1. Ajuste do Container Principal */
-            .page-container {
-                height: 96vh !important;
-                width: 95vw !important;
-            }
+    function aplicarZoomDesktop() {
+        const container = document.querySelector('.page-container');
+        if (!container) return;
 
-            /* 2. Redução dos espaçamentos internos para caber na tela */
-            .content-area {
-                padding: 20px 15px !important;
-            }
+        const larguraTela = window.innerWidth;
+        // 1100px é o tamanho do seu container + 50px de respiro = 1150
+        const larguraProjeto = 1150; 
 
-            /* 3. Ajuste do Cabeçalho (Empilha os textos e centraliza) */
-            header {
-                flex-direction: column !important;
-                align-items: center !important;
-                text-align: center !important;
-                gap: 15px !important;
-                margin-bottom: 20px !important;
-            }
-            .header-left h1 { font-size: 20px !important; }
-            .header-right { text-align: center !important; font-size: 11px !important; width: 100%; }
-
-            /* 4. O SEGREDO: Transforma TODAS as grades (grids) em 1 única coluna vertical */
-            main, .escopo-grid, .timeline-grid, .justificativa-grid, .impactos-grid, .viabilidade-grid, .grid-conteudo, .grid-especificos {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 20px !important;
-            }
-
-            /* 5. Ajuste interno dos cartões e textos */
-            .card-info, .card-viab, .fase-card, .resultado-card, .card-justificativa, .obj-geral {
-                padding: 20px 15px !important;
-            }
-            .texto-principal p { font-size: 14px !important; }
-
-            /* 6. Ajuste do Rodapé (Empilha as logos e os botões) */
-            footer {
-                flex-direction: column !important;
-                height: auto !important;
-                padding: 15px !important;
-                gap: 15px !important;
-            }
-            .nav-panel {
-                width: 100% !important;
-                justify-content: space-between !important;
-            }
-
-            /* 7. Modais (Telas de aviso/curiosidade) adaptados para o celular */
-            .modal-content {
-                width: 90% !important;
-                padding: 25px !important;
-                max-height: 80vh !important;
-                overflow-y: auto !important;
-            }
-
-            /* 8. Sobe o botão de curiosidade para não ficar em cima do novo rodapé */
-            .btn-curiosidade {
-                bottom: 120px !important; 
-                left: 15px !important;
-            }
+        if (larguraTela < larguraProjeto) {
+            // Calcula a porcentagem exata para encolher a tela
+            const escala = larguraTela / larguraProjeto;
+            
+            // Aplica o encolhimento (zoom out) em toda a página do e-book
+            container.style.transform = 'scale(' + escala + ')';
+            container.style.transformOrigin = 'center center';
+            
+            // Força uma altura fixa para manter o formato deitado (paisagem) idêntico ao do PC, 
+            // evitando que o celular estique a caixa lá para baixo
+            container.style.height = '750px'; 
+            container.style.maxHeight = '750px';
+            
+            // Trava a rolagem do fundo para a tela não ficar "sambando" no celular
+            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
+        } else {
+            // Se for PC, volta para a configuração original
+            container.style.transform = 'none';
+            container.style.height = '90vh';
+            container.style.maxHeight = 'none';
         }
-    `;
+    }
+
+    // Executa o script assim que a página carrega e toda vez que a tela girar/mudar de tamanho
+    window.addEventListener('DOMContentLoaded', aplicarZoomDesktop);
+    window.addEventListener('resize', aplicarZoomDesktop);
     
-    // Adiciona as regras ao <head> de todas as páginas onde o script for chamado
-    document.head.appendChild(estiloMobile);
+    // Executa imediatamente por segurança
+    aplicarZoomDesktop();
 })();

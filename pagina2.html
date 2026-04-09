@@ -2,11 +2,10 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.35, maximum-scale=0.35, user-scalable=no">
     <title>Camaçari na Mão - Projeto</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -23,11 +22,15 @@
 
         body, html {
             margin: 0; padding: 0;
-            height: 100%;
+            width: 100%; height: 100%;
             background-color: var(--fundo-pagina);
             display: flex; justify-content: center; align-items: center;
             font-family: 'Montserrat', sans-serif;
+            
+            /* Trava a tela para não rolar pros lados nem pra cima */
             overflow: hidden; 
+            touch-action: none; 
+
             opacity: 0; animation: fadeIn 0.5s ease-out forwards;
         }
 
@@ -36,17 +39,25 @@
         @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-10px); } }
         .saindo { animation: fadeOut 0.3s ease-in forwards !important; }
 
-        /* CONTAINER PRINCIPAL DO E-BOOK */
+        /* CAIXA COM TAMANHO ABSOLUTO E FIXO */
         .page-container {
-            width: 100%;
-            max-width: 1100px;
-            height: 90vh;
+            width: 1100px;
+            height: 750px;
+            flex-shrink: 0; 
             background-color: var(--fundo-app);
             box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
             display: flex; flex-direction: column;
             position: relative;
             box-sizing: border-box;
+        }
+
+        /* A LINHA QUE DITA O ZOOM NA MINIATURA DO CELULAR */
+        @media (max-width: 1150px) {
+            .page-container {
+                /* Esse cálculo encolhe a caixa exatamente para caber em 95% da tela do celular */
+                transform: scale(calc(95vw / 1100)); 
+            }
         }
 
         /* ÁREA DE CONTEÚDO COM PADDING */
@@ -119,7 +130,7 @@
 
         /* MODAIS DINÂMICOS */
         .modal {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(255, 255, 255, 0.95);
             display: none; justify-content: center; align-items: center;
             z-index: 1000; border-radius: 12px;
@@ -127,7 +138,7 @@
         }
 
         .modal-content {
-            background-color: #fff; padding: 40px; border-radius: 8px; width: 65%; 
+            background-color: #fff; padding: 40px; border-radius: 8px; width: 700px; 
             box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.15);
             position: relative; animation: modalIn 0.3s ease-out;
         }
@@ -139,7 +150,7 @@
         .close-modal:hover { color: #333; }
 
         .modal-content h3 { font-size: 18px; text-transform: uppercase; margin: 0 0 15px 0; }
-        .modal-content p { font-size: 14px; line-height: 1.6; color: #444; text-align: justify; margin: 0; }
+        .modal-content p { font-size: 14px; line-height: 1.6; color: #444; text-align: justify; margin: 0 0 10px 0; }
         .modal-content strong { color: #222; }
 
         /* RODAPÉ DO E-BOOK */
@@ -234,9 +245,9 @@
                 <span onclick="fecharModal('modalEstrutura')" class="close-modal"><i class="fa-solid fa-xmark"></i></span>
                 <h3 style="color: var(--verde);">Interface da Gestão Integrada</h3>
                 <p>A plataforma cria um "Painel de Controle Integrado" onde as secretarias acessam a mesma base de dados em tempo real:</p>
-                <p><br><strong>• Módulo SEDUR:</strong> Recebe mapas de calor com as demandas urbanas para direcionar a revisão do Plano Diretor.</p>
-                <p><br><strong>• Módulo SINFRA:</strong> Transforma os mapas de calor em projetos de engenharia e cronogramas de execução.</p>
-                <p><br><strong>• Módulo FAZENDA:</strong> Cruza o custo dos projetos com a previsão de arrecadação (IPTU/ISS), atestando a viabilidade financeira antes do início das obras.</p>
+                <p><strong>• Módulo SEDUR:</strong> Recebe mapas de calor com as demandas urbanas para direcionar a revisão do Plano Diretor.</p>
+                <p><strong>• Módulo SINFRA:</strong> Transforma os mapas de calor em projetos de engenharia e cronogramas de execução.</p>
+                <p><strong>• Módulo FAZENDA:</strong> Cruza o custo dos projetos com a previsão de arrecadação (IPTU/ISS), atestando a viabilidade financeira antes do início das obras.</p>
             </div>
         </div>
 
@@ -271,6 +282,5 @@
             }
         }
     </script>
-<script src="responsividade.js"></script>
 </body>
 </html>

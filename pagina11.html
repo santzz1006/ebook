@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.35, maximum-scale=0.35, user-scalable=no">
     <title>Camaçari na Mão - Considerações Finais</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
@@ -10,11 +10,9 @@
 
     <style>
         :root {
-            /* AS 3 CORES DA PALETA CAMAÇARI NA MÃO */
             --azul: #1a428a;
             --verde: #009e49;
             --amarelo: #FFDE59;
-            
             --texto-base: #333;
             --fundo-pagina: #e9ecef;
             --fundo-app: #ffffff;
@@ -22,11 +20,17 @@
 
         body, html {
             margin: 0; padding: 0;
-            height: 100%;
+            width: 100%; height: 100%;
             background-color: var(--fundo-pagina);
+            
+            /* Centraliza a caixa na tela */
             display: flex; justify-content: center; align-items: center;
             font-family: 'Montserrat', sans-serif;
+            
+            /* AS DUAS REGRAS QUE TRAVAM A TELA NO CELULAR (FIM DO ZOOM BUGADO) */
             overflow: hidden; 
+            touch-action: none; 
+
             opacity: 0; animation: fadeIn 0.5s ease-out forwards;
         }
 
@@ -34,11 +38,11 @@
         @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-10px); } }
         .saindo { animation: fadeOut 0.3s ease-in forwards !important; }
 
-        /* PADRÃO DE TAMANHO GERAL DO E-BOOK */
+        /* CAIXA COM TAMANHO ABSOLUTO E FIXO */
         .page-container {
-            width: 100%;
-            max-width: 1100px;
-            height: 90vh;
+            width: 1100px;  
+            height: 750px;  
+            flex-shrink: 0; /* Impede a caixa de ser amassada */
             background-color: var(--fundo-app);
             box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
@@ -47,12 +51,19 @@
             box-sizing: border-box;
         }
 
+        /* A REDUÇÃO MATEMÁTICA PARA CELULAR */
+        @media (max-width: 1150px) {
+            .page-container {
+                /* Reduz a caixa de 1100px para caber em 95% da largura da tela do celular */
+                transform: scale(calc(95vw / 1100)); 
+            }
+        }
+
         .content-area {
             flex-grow: 1;
             padding: 40px 50px 20px 50px;
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
         }
 
         /* HEADER PADRÃO */
@@ -65,13 +76,13 @@
         .header-left h2 { font-size: 15px; font-weight: 400; color: #777; margin: 5px 0 0 0; }
         .header-right { text-align: right; font-size: 12px; font-weight: 600; color: #555; text-transform: uppercase; }
 
-        /* LAYOUT DE CONCLUSÃO (ESQUERDA DESTAQUE / DIREITA TEXTO) */
+        /* LAYOUT DE CONCLUSÃO */
         .conclusao-grid {
             display: grid;
             grid-template-columns: 1fr 1.2fr;
             gap: 50px;
             flex-grow: 1;
-            align-items: center; /* Centraliza verticalmente */
+            align-items: center;
         }
 
         /* DESTAQUE INSTITUCIONAL */
@@ -85,9 +96,8 @@
             overflow: hidden;
         }
 
-        /* Ícone gigante e suave no fundo do card de destaque */
         .card-destaque::after {
-            content: '\f19c'; /* Ícone de instituição do fontawesome */
+            content: '\f19c';
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             position: absolute;
@@ -173,7 +183,7 @@
 
         /* MODAL DA CURIOSIDADE */
         .modal {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(255, 255, 255, 0.95);
             display: none; justify-content: center; align-items: center;
             z-index: 1000; border-radius: 12px;
@@ -181,7 +191,7 @@
         }
 
         .modal-content {
-            background-color: #fff; padding: 40px; border-radius: 8px; width: 60%; 
+            background-color: #fff; padding: 40px; border-radius: 8px; width: 600px; 
             box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.15);
             position: relative; animation: modalIn 0.3s ease-out;
         }
@@ -216,9 +226,6 @@
         .btn-finalizar { background-color: var(--verde); color: #fff; border-color: var(--verde); }
         .btn-finalizar:hover { background-color: #007a38; border-color: #007a38; }
         .num-pagina { font-size: 14px; font-weight: 700; color: #999; }
-
-        .content-area::-webkit-scrollbar { width: 6px; }
-        .content-area::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -306,6 +313,5 @@
             }
         }
     </script>
-<script src="responsividade.js"></script>
 </body>
 </html>
