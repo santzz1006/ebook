@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camaçari na Mão - Metodologia</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* AS 3 CORES DA PALETA CAMAÇARI NA MÃO */
+            --azul: #1a428a;
+            --verde: #009e49;
+            --amarelo: #FFDE59;
+            
+            --texto-base: #333;
+            --fundo-pagina: #e9ecef;
+            --fundo-app: #ffffff;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            height: 100%;
+            background-color: var(--fundo-pagina);
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; 
+            opacity: 0; animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-10px); } }
+        .saindo { animation: fadeOut 0.3s ease-in forwards !important; }
+
+        /* PADRÃO DE TAMANHO GERAL DO E-BOOK */
+        .page-container {
+            width: 100%;
+            max-width: 1100px;
+            height: 90vh;
+            background-color: var(--fundo-app);
+            box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            display: flex; flex-direction: column;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            padding: 40px 50px 20px 50px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        /* HEADER PADRÃO */
+        header {
+            display: flex; justify-content: space-between; align-items: start;
+            margin-bottom: 20px; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px;
+        }
+
+        .header-left h1 { font-size: 24px; font-weight: 700; color: var(--azul); text-transform: uppercase; margin: 0; }
+        .header-left h2 { font-size: 15px; font-weight: 400; color: #777; margin: 5px 0 0 0; }
+        .header-right { text-align: right; font-size: 12px; font-weight: 600; color: #555; text-transform: uppercase; }
+
+        /* LAYOUT DA METODOLOGIA (GRID 2x2) */
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            flex-grow: 1;
+            padding: 10px 20px;
+            align-content: center;
+        }
+
+        .fase-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 25px 30px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            border-top: 5px solid #ccc; 
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .fase-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.08);
+        }
+
+        /* CABEÇALHO DO CARTÃO DA FASE */
+        .fase-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .fase-icone {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .fase-titulos h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #222;
+            text-transform: uppercase;
+            margin: 0 0 5px 0;
+        }
+
+        .fase-tempo {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background-color: #f0f0f0;
+            color: #666;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* CORPO DO CARTÃO */
+        .fase-card p {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+            margin: 0;
+            text-align: justify;
+        }
+
+        /* CORES ESPECÍFICAS DAS FASES */
+        .fase-1 { border-top-color: var(--azul); }
+        .fase-1 .fase-icone { background-color: var(--azul); }
+
+        .fase-2 { border-top-color: var(--verde); }
+        .fase-2 .fase-icone { background-color: var(--verde); }
+
+        .fase-3 { border-top-color: var(--amarelo); }
+        .fase-3 .fase-icone { background-color: var(--amarelo); color: #000; }
+
+        .fase-4 { border-top-color: var(--azul); }
+        .fase-4 .fase-icone { background-color: var(--azul); }
+
+        /* BOTÃO DE CURIOSIDADE */
+        .btn-curiosidade {
+            position: absolute;
+            bottom: 85px; 
+            left: 50px;
+            background-color: #fffdf5;
+            border: 2px solid var(--amarelo);
+            color: #d4ac0d;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(255, 222, 89, 0.2);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .btn-curiosidade:hover {
+            background-color: var(--amarelo);
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0px 6px 15px rgba(255, 222, 89, 0.4);
+        }
+
+        /* MODAL DA CURIOSIDADE */
+        .modal {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: none; justify-content: center; align-items: center;
+            z-index: 1000; border-radius: 12px;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: #fff; padding: 40px; border-radius: 8px; width: 60%; 
+            box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.15);
+            position: relative; animation: modalIn 0.3s ease-out;
+        }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        .close-modal {
+            position: absolute; top: 15px; right: 20px; font-size: 24px; color: #999; cursor: pointer;
+        }
+        .close-modal:hover { color: #333; }
+
+        .modal-content h3 { font-size: 18px; text-transform: uppercase; margin: 0 0 15px 0; }
+        .modal-content p { font-size: 14px; line-height: 1.6; color: #444; text-align: justify; margin: 0; }
+
+        /* RODAPÉ PADRÃO */
+        footer {
+            height: 70px; background-color: #f8f9fa; border-top: 1px solid #eaeaea;
+            border-radius: 0 0 12px 12px; display: flex; justify-content: space-between; align-items: center;
+            padding: 0 50px;
+        }
+
+        .logos { display: flex; align-items: center; gap: 20px; }
+        .logos img { height: 35px; opacity: 0.8; }
+
+        .nav-panel { display: flex; align-items: center; gap: 20px; }
+        .btn-nav {
+            background: none; border: 1px solid #ccc; border-radius: 4px;
+            padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase;
+            color: #555; cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; gap: 8px; text-decoration: none;
+        }
+        .btn-nav:hover { background-color: var(--azul); border-color: var(--azul); color: #fff; }
+        .num-pagina { font-size: 14px; font-weight: 700; color: #999; }
+
+        .content-area::-webkit-scrollbar { width: 6px; }
+        .content-area::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        
+        <div class="content-area">
+            <header>
+                <div class="header-left">
+                    <h1>Metodologia de Implementação</h1>
+                    <h2>Modelo ágil dividido em 4 fases essenciais</h2>
+                </div>
+                <div class="header-right">
+                    Universidade Federal da Bahia<br>
+                    Adm & Econ + Empreendedorismo
+                </div>
+            </header>
+
+            <main class="timeline-grid">
+                
+                <div class="fase-card fase-1">
+                    <div class="fase-header">
+                        <div class="fase-icone"><i class="fa-solid fa-network-wired"></i></div>
+                        <div class="fase-titulos">
+                            <h3>Fase 1: Diagnóstico e Integração</h3>
+                            <span class="fase-tempo">Mês 1 a 2</span>
+                        </div>
+                    </div>
+                    <p>Mapeamento dos sistemas legados das 3 secretarias envolvidas (SEDUR, SEINFRA e SEFAZ) e desenvolvimento da API responsável pela integração dos dados municipais.</p>
+                </div>
+
+                <div class="fase-card fase-2">
+                    <div class="fase-header">
+                        <div class="fase-icone"><i class="fa-solid fa-mobile-screen"></i></div>
+                        <div class="fase-titulos">
+                            <h3>Fase 2: Desenvolvimento do App</h3>
+                            <span class="fase-tempo">Mês 3 a 5</span>
+                        </div>
+                    </div>
+                    <p>Criação das interfaces do aplicativo, programação e realização de testes rigorosos de segurança e usabilidade (UX/UI) focados no cidadão.</p>
+                </div>
+
+                <div class="fase-card fase-3">
+                    <div class="fase-header">
+                        <div class="fase-icone"><i class="fa-solid fa-chalkboard-user"></i></div>
+                        <div class="fase-titulos">
+                            <h3>Fase 3: Piloto e Capacitação</h3>
+                            <span class="fase-tempo">Mês 6 a 7</span>
+                        </div>
+                    </div>
+                    <p>Treinamento intensivo dos servidores públicos e lançamento de um "Teste Piloto" restrito a dois bairros da sede (ex: Centro e Gleba A) para avaliação de estabilidade.</p>
+                </div>
+
+                <div class="fase-card fase-4">
+                    <div class="fase-header">
+                        <div class="fase-icone"><i class="fa-solid fa-bullhorn"></i></div>
+                        <div class="fase-titulos">
+                            <h3>Fase 4: Lançamento Oficial</h3>
+                            <span class="fase-tempo">Mês 8 a 10</span>
+                        </div>
+                    </div>
+                    <p>Campanha de marketing massiva ("Sua voz constrói Camaçari") e liberação do app para toda a sede, coincidindo com o período de elaboração da LOA (Lei Orçamentária Anual).</p>
+                </div>
+
+            </main>
+        </div>
+
+        <button onclick="abrirCuriosidade()" class="btn-curiosidade">
+            <i class="fa-solid fa-lightbulb"></i> Curiosidade
+        </button>
+
+        <footer>
+            <div class="logos">
+                <img src="ufba.png" alt="UFBA">
+                <img src="camacari.png" alt="Camaçari">
+            </div>
+
+            <div class="nav-panel">
+                <a onclick="mudarPagina('pagina7.html')" class="btn-nav">
+                    <i class="fa-solid fa-chevron-left"></i> Anterior
+                </a>
+                <span class="num-pagina">08</span>
+                <a onclick="mudarPagina('pagina9.html')" class="btn-nav">
+                    Próxima <i class="fa-solid fa-chevron-right"></i>
+                </a>
+            </div>
+        </footer>
+
+        <div id="modalCuriosidade" class="modal">
+            <div class="modal-content" style="border-left: 5px solid var(--amarelo);">
+                <span onclick="fecharCuriosidade()" class="close-modal"><i class="fa-solid fa-xmark"></i></span>
+                <h3 style="color: #d4ac0d;"><i class="fa-solid fa-lightbulb"></i> Você Sabia?</h3>
+                <p>O <strong>"Modelo Ágil"</strong> (Agile) de implementação, escolhido para o Camaçari na Mão, nasceu no setor de engenharia de software no início dos anos 2000. Hoje, ele é a metodologia recomendada pela ONU e por governos inovadores ao redor do mundo por permitir lançamentos mais rápidos e correções em tempo real, evitando que o dinheiro público seja gasto em projetos engessados que demoram anos para saírem do papel.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function mudarPagina(destino) {
+            document.body.classList.add('saindo');
+            setTimeout(function() { window.location.href = destino; }, 300);
+        }
+
+        function abrirCuriosidade() {
+            document.getElementById('modalCuriosidade').style.display = 'flex';
+        }
+
+        function fecharCuriosidade() {
+            document.getElementById('modalCuriosidade').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camaçari na Mão - Sumário</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* AS 3 CORES DA PALETA CAMAÇARI NA MÃO */
+            --azul: #1a428a;
+            --verde: #009e49;
+            --amarelo: #FFDE59;
+            
+            --texto-base: #333;
+            --fundo-pagina: #e9ecef;
+            --fundo-app: #ffffff;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            height: 100%;
+            background-color: var(--fundo-pagina);
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; 
+            opacity: 0; animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-10px); } }
+        .saindo { animation: fadeOut 0.3s ease-in forwards !important; }
+
+        /* CONTAINER PRINCIPAL EXATAMENTE IGUAL AO DA PAG 2 */
+        .page-container {
+            width: 100%;
+            max-width: 1100px;
+            height: 90vh;
+            background-color: var(--fundo-app);
+            box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            display: flex; flex-direction: column;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        /* ÁREA DE CONTEÚDO EXATAMENTE IGUAL AO DA PAG 2 */
+        .content-area {
+            flex-grow: 1;
+            padding: 40px 50px 20px 50px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER EXATAMENTE IGUAL AO DA PAG 2 */
+        header {
+            display: flex; justify-content: space-between; align-items: start;
+            margin-bottom: 40px; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px;
+        }
+
+        .header-left h1 { 
+            font-size: 24px; font-weight: 700; color: var(--azul); text-transform: uppercase; margin: 0; 
+        }
+        .header-left h2 { font-size: 15px; font-weight: 400; color: #777; margin: 5px 0 0 0; }
+        .header-right { text-align: right; font-size: 12px; font-weight: 600; color: #555; text-transform: uppercase; }
+
+        /* ESTILOS ESPECÍFICOS PARA O SUMÁRIO EM FORMATO DE GRADE */
+        .toc-grid { 
+            flex-grow: 1; 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); /* Divide o sumário em 2 colunas para preencher a tela */
+            gap: 20px; 
+            align-content: start; 
+        }
+
+        .toc-item {
+            background-color: #fff;
+            padding: 20px 25px; 
+            border-radius: 8px;
+            border: 1px solid #eaeaea;
+            display: flex; 
+            align-items: center; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.02);
+            text-decoration: none;
+        }
+
+        .toc-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .toc-number {
+            font-size: 28px;
+            font-weight: 700;
+            margin-right: 20px;
+            opacity: 0.9;
+        }
+
+        .toc-text { flex-grow: 1; }
+
+        .toc-text h3 { 
+            font-size: 14px; 
+            font-weight: 700; 
+            color: #222; 
+            margin: 0 0 5px 0; 
+            text-transform: uppercase;
+        }
+
+        .toc-text p { 
+            font-size: 12px; 
+            color: #777; 
+            margin: 0; 
+            font-weight: 600;
+        }
+
+        .toc-item i { font-size: 16px; color: #ccc; transition: color 0.3s; }
+
+        /* CORES DO SUMÁRIO */
+        .toc-azul { border-left: 5px solid var(--azul); }
+        .toc-azul .toc-number { color: var(--azul); }
+        .toc-azul:hover { border-color: var(--azul); }
+        .toc-azul:hover i { color: var(--azul); }
+
+        .toc-verde { border-left: 5px solid var(--verde); }
+        .toc-verde .toc-number { color: var(--verde); }
+        .toc-verde:hover { border-color: var(--verde); }
+        .toc-verde:hover i { color: var(--verde); }
+
+        .toc-amarelo { border-left: 5px solid var(--amarelo); }
+        .toc-amarelo .toc-number { color: #d4ac0d; } /* Amarelo escuro para leitura */
+        .toc-amarelo:hover { border-color: var(--amarelo); }
+        .toc-amarelo:hover i { color: #d4ac0d; }
+
+        /* RODAPÉ EXATAMENTE IGUAL AO DA PAG 2 */
+        footer {
+            height: 70px; background-color: #f8f9fa; border-top: 1px solid #eaeaea;
+            border-radius: 0 0 12px 12px; display: flex; justify-content: space-between; align-items: center;
+            padding: 0 50px;
+        }
+
+        .logos { display: flex; align-items: center; gap: 20px; }
+        .logos img { height: 35px; opacity: 0.8; }
+
+        .nav-panel { display: flex; align-items: center; gap: 20px; }
+        .btn-nav {
+            background: none; border: 1px solid #ccc; border-radius: 4px;
+            padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase;
+            color: #555; cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; gap: 8px; text-decoration: none;
+        }
+        .btn-nav:hover { background-color: var(--azul); border-color: var(--azul); color: #fff; }
+        .num-pagina { font-size: 14px; font-weight: 700; color: #999; }
+
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        
+        <div class="content-area">
+            <header>
+                <div class="header-left">
+                    <h1>Sumário Executivo</h1>
+                    <h2>Organização do Projeto</h2>
+                </div>
+                <div class="header-right">
+                    Universidade Federal da Bahia<br>
+                    Adm & Econ + Empreendedorismo
+                </div>
+            </header>
+
+            <main class="toc-grid">
+                
+                <a onclick="mudarPagina('pagina4.html')" class="toc-item toc-azul">
+                    <div class="toc-number">01</div>
+                    <div class="toc-text">
+                        <h3>Introdução e Contextualização</h3>
+                        <p>O desafio da gestão isolada.</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+                <a onclick="mudarPagina('pagina5.html')" class="toc-item toc-verde">
+                    <div class="toc-number">02</div>
+                    <div class="toc-text">
+                        <h3>Justificativa Estratégica</h3>
+                        <p>A necessidade de transparência.</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+                <a onclick="mudarPagina('pagina6.html')" class="toc-item toc-amarelo">
+                    <div class="toc-number">03</div>
+                    <div class="toc-text">
+                        <h3>Objetivos</h3>
+                        <p>Gerais e específicos do app.</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+                <a onclick="mudarPagina('pagina7.html')" class="toc-item toc-azul">
+                    <div class="toc-number">04</div>
+                    <div class="toc-text">
+                        <h3>Escopo do Projeto</h3>
+                        <p>O App Camaçari na Mão.</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+                <a onclick="mudarPagina('pagina8.html')" class="toc-item toc-verde">
+                    <div class="toc-number">05</div>
+                    <div class="toc-text">
+                        <h3>Metodologia</h3>
+                        <p>As 4 fases de implementação.</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+                <a onclick="mudarPagina('pagina9.html')" class="toc-item toc-amarelo">
+                    <div class="toc-number">06</div>
+                    <div class="toc-text">
+                        <h3>Impactos e Resultados</h3>
+                        <p>Benefícios para a gestão e população.</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+                <a onclick="mudarPagina('pagina10.html')" class="toc-item toc-azul">
+                    <div class="toc-number">07</div>
+                    <div class="toc-text">
+                        <h3>Viabilidade</h3>
+                        <p>Institucional, Financeira e Sustentável.</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+                <a onclick="mudarPagina('pagina11.html')" class="toc-item toc-verde">
+                    <div class="toc-number">08</div>
+                    <div class="toc-text">
+                        <h3>Considerações Finais</h3>
+                        <p>O impacto institucional.</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+            </main>
+        </div>
+
+        <footer>
+            <div class="logos">
+                <img src="ufba.png" alt="UFBA">
+                <img src="camacari.png" alt="Camaçari">
+            </div>
+
+            <div class="nav-panel">
+                <a onclick="mudarPagina('pagina2.html')" class="btn-nav">
+                    <i class="fa-solid fa-chevron-left"></i> Anterior
+                </a>
+                <span class="num-pagina">03</span>
+                <a onclick="mudarPagina('pagina4.html')" class="btn-nav">
+                    Próxima <i class="fa-solid fa-chevron-right"></i>
+                </a>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        function mudarPagina(destino) {
+            document.body.classList.add('saindo');
+            setTimeout(function() { window.location.href = destino; }, 300);
+        }
+    </script>
+
+</body>
+</html>

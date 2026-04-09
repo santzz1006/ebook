@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camaçari na Mão - Introdução</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --azul: #1a428a;
+            --verde: #009e49;
+            --amarelo: #FFDE59;
+            --fundo-pagina: #e9ecef;
+            --fundo-app: #ffffff;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            height: 100%;
+            background-color: var(--fundo-pagina);
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; 
+            opacity: 0; animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-10px); } }
+        .saindo { animation: fadeOut 0.3s ease-in forwards !important; }
+
+        /* PADRÃO DE TAMANHO GERAL DO E-BOOK */
+        .page-container {
+            width: 100%;
+            max-width: 1100px;
+            height: 90vh;
+            background-color: var(--fundo-app);
+            box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            display: flex; flex-direction: column;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            padding: 40px 50px 20px 50px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        /* HEADER PADRÃO */
+        header {
+            display: flex; justify-content: space-between; align-items: start;
+            margin-bottom: 30px; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px;
+        }
+
+        .header-left h1 { font-size: 24px; font-weight: 700; color: var(--azul); text-transform: uppercase; margin: 0; }
+        .header-left h2 { font-size: 15px; font-weight: 400; color: #777; margin: 5px 0 0 0; }
+        .header-right { text-align: right; font-size: 12px; font-weight: 600; color: #555; text-transform: uppercase; }
+
+        /* LAYOUT DIVIDIDO PARA A INTRODUÇÃO E A CURIOSIDADE */
+        .grid-conteudo {
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* Coluna de texto 2x maior que a da curiosidade */
+            gap: 40px;
+            flex-grow: 1;
+        }
+
+        /* ESTILO DO TEXTO PRINCIPAL (Trazendo o texto do DOCX) */
+        .texto-principal {
+            color: #444;
+            font-size: 15px;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .texto-principal p {
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-indent: 30px; /* Recuo leve de primeira linha para leitura confortável */
+        }
+
+        /* DESTAQUE DE PALAVRAS NO TEXTO */
+        .destaque {
+            font-weight: 600;
+            color: var(--azul);
+        }
+
+        /* CAIXA DE CURIOSIDADE ("VOCÊ SABIA?") */
+        .caixa-curiosidade {
+            background-color: #fffdf5; /* Fundo amarelo muito claro */
+            border: 2px solid var(--amarelo);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0px 8px 20px rgba(255, 222, 89, 0.2);
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .curiosidade-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #d4ac0d; /* Amarelo escurecido para contraste na leitura */
+            font-weight: 700;
+            font-size: 18px;
+            text-transform: uppercase;
+            border-bottom: 2px dashed #f2d750;
+            padding-bottom: 10px;
+        }
+
+        .curiosidade-header i {
+            font-size: 24px;
+        }
+
+        .curiosidade-body {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #555;
+            text-align: left;
+        }
+
+        /* RODAPÉ PADRÃO */
+        footer {
+            height: 70px; background-color: #f8f9fa; border-top: 1px solid #eaeaea;
+            border-radius: 0 0 12px 12px; display: flex; justify-content: space-between; align-items: center;
+            padding: 0 50px;
+        }
+
+        .logos { display: flex; align-items: center; gap: 20px; }
+        .logos img { height: 35px; opacity: 0.8; }
+
+        .nav-panel { display: flex; align-items: center; gap: 20px; }
+        .btn-nav {
+            background: none; border: 1px solid #ccc; border-radius: 4px;
+            padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase;
+            color: #555; cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; gap: 8px; text-decoration: none;
+        }
+        .btn-nav:hover { background-color: var(--azul); border-color: var(--azul); color: #fff; }
+        .num-pagina { font-size: 14px; font-weight: 700; color: #999; }
+
+        /* Estilização da barra de rolagem */
+        .content-area::-webkit-scrollbar { width: 6px; }
+        .content-area::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        
+        <div class="content-area">
+            <header>
+                <div class="header-left">
+                    <h1>Introdução e Contextualização</h1>
+                    <h2>Os desafios urbanos da sede do município</h2>
+                </div>
+                <div class="header-right">
+                    Universidade Federal da Bahia<br>
+                    Adm & Econ + Empreendedorismo
+                </div>
+            </header>
+
+            <main class="grid-conteudo">
+                
+                <div class="texto-principal">
+                    <p>O município de Camaçari (BA), conhecido nacionalmente pelo Polo Industrial, enfrenta na área da sede desafios típicos da gestão pública brasileira: crescimento urbano acelerado, demandas concorrentes por infraestrutura e <span class="destaque">recursos limitados para investimento</span>.</p>
+                    
+                    <p>Nesse cenário, a fragmentação da governança — quando diferentes secretarias planejam e executam obras de forma isolada, sem compartilhar informações ou coordenar esforços — torna-se um <span class="destaque">obstáculo crítico à eficiência e à transparência</span> da gestão municipal.</p>
+
+                    <p>Ao mesmo tempo, a participação cidadã no orçamento público permanece incipiente, restrita a audiências presenciais de baixa adesão e sem mecanismos digitais que permitam ao morador da sede expressar suas prioridades de forma estruturada. Essa combinação — desarticulação interna entre pastas e distanciamento externo da população — gera desperdício de recursos, atrasos em obras e uma percepção generalizada de que a prefeitura não escuta o povo.</p>
+
+                    <p>O presente projeto propõe o desenvolvimento e a implementação do App <strong>"Camaçari na Mão"</strong>, uma plataforma digital de orçamento participativo integrada a um sistema de gestão compartilhada de dados entre as Secretarias de Desenvolvimento Urbano (SEDUR), Infraestrutura (SEINFRA) e Fazenda (SEFAZ).</p>
+                </div>
+
+                <div class="caixa-curiosidade">
+                    <div class="curiosidade-header">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        Curiosidade
+                    </div>
+                    <div class="curiosidade-body">
+                        <p><strong>Uma invenção brasileira!</strong><br><br>
+                        Você sabia que o <strong>Orçamento Participativo</strong> (que é a base do app <em>Camaçari na Mão</em>) nasceu no Brasil? A primeira experiência mundial de sucesso ocorreu na cidade de Porto Alegre, em 1989.</p>
+                        
+                        <p>A ideia foi considerada tão inovadora que a ONU a reconheceu como uma das melhores práticas de gestão pública urbana do mundo, sendo exportada posteriormente para cidades como Paris, Nova York e Madrid.</p>
+                        
+                        <p>O projeto Camaçari na Mão representa a <strong>evolução digital</strong> dessa brilhante ideia brasileira, trazendo a participação cidadã para a palma da mão.</p>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
+        <footer>
+            <div class="logos">
+                <img src="ufba.png" alt="UFBA">
+                <img src="camacari.png" alt="Camaçari">
+            </div>
+
+            <div class="nav-panel">
+                <a onclick="mudarPagina('pagina3.html')" class="btn-nav">
+                    <i class="fa-solid fa-chevron-left"></i> Anterior
+                </a>
+                <span class="num-pagina">04</span>
+                <a onclick="mudarPagina('pagina5.html')" class="btn-nav">
+                    Próxima <i class="fa-solid fa-chevron-right"></i>
+                </a>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        function mudarPagina(destino) {
+            document.body.classList.add('saindo');
+            setTimeout(function() { window.location.href = destino; }, 300);
+        }
+    </script>
+
+</body>
+</html>

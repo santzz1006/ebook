@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camaçari na Mão - Projeto</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* AS 3 CORES DA PALETA CAMAÇARI NA MÃO */
+            --azul: #1a428a;
+            --verde: #009e49;
+            --amarelo: #FFDE59;
+            
+            --texto-base: #333;
+            --fundo-pagina: #e9ecef;
+            --fundo-app: #ffffff;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            height: 100%;
+            background-color: var(--fundo-pagina);
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; 
+            opacity: 0; animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* ANIMAÇÃO DE ENTRADA E SAÍDA DA PÁGINA */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-10px); } }
+        .saindo { animation: fadeOut 0.3s ease-in forwards !important; }
+
+        /* CONTAINER PRINCIPAL DO E-BOOK */
+        .page-container {
+            width: 100%;
+            max-width: 1100px;
+            height: 90vh;
+            background-color: var(--fundo-app);
+            box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            display: flex; flex-direction: column;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        /* ÁREA DE CONTEÚDO COM PADDING */
+        .content-area {
+            flex-grow: 1;
+            padding: 40px 50px 20px 50px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER */
+        header {
+            display: flex; justify-content: space-between; align-items: start;
+            margin-bottom: 40px; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px;
+        }
+
+        .header-left h1 { 
+            font-size: 24px; font-weight: 700; color: var(--azul); text-transform: uppercase; margin: 0; 
+        }
+        .header-left h2 { font-size: 15px; font-weight: 400; color: #777; margin: 5px 0 0 0; }
+        .header-right { text-align: right; font-size: 12px; font-weight: 600; color: #555; text-transform: uppercase; }
+
+        /* GRID DE CARTÕES INTERATIVOS */
+        main { 
+            flex-grow: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; align-items: start; 
+        }
+
+        .card-info {
+            background-color: #fff;
+            padding: 30px 20px; border-radius: 8px;
+            border: 1px solid #eaeaea;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.02);
+            height: 100%; box-sizing: border-box;
+        }
+
+        .card-info:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* APLICAÇÃO DAS 3 CORES DA PALETA NOS CARTÕES */
+        .card-azul { border-bottom: 4px solid var(--azul); }
+        .card-azul .card-icon { color: var(--azul); }
+        .card-azul .btn-card { background-color: rgba(26, 66, 138, 0.1); color: var(--azul); }
+        .card-azul .btn-card:hover { background-color: var(--azul); color: #fff; }
+
+        .card-verde { border-bottom: 4px solid var(--verde); }
+        .card-verde .card-icon { color: var(--verde); }
+        .card-verde .btn-card { background-color: rgba(0, 158, 73, 0.1); color: var(--verde); }
+        .card-verde .btn-card:hover { background-color: var(--verde); color: #fff; }
+
+        .card-amarelo { border-bottom: 4px solid var(--amarelo); }
+        .card-amarelo .card-icon { color: #e6c12e; } 
+        .card-amarelo .btn-card { background-color: var(--amarelo); color: #000; }
+        .card-amarelo .btn-card:hover { background-color: #e6c84f; }
+
+        .card-icon { font-size: 35px; margin-bottom: 20px; transition: transform 0.3s; }
+        .card-info:hover .card-icon { transform: scale(1.1); }
+        .card-info h3 { font-size: 16px; font-weight: 700; color: #222; margin: 0 0 10px 0; text-transform: uppercase;}
+        .card-info p { font-size: 13px; line-height: 1.6; color: #666; flex-grow: 1; margin: 0 0 25px 0; }
+
+        .btn-card {
+            border: none; font-size: 12px; font-weight: 700; text-transform: uppercase;
+            padding: 10px 24px; border-radius: 4px;
+            cursor: pointer; transition: all 0.3s;
+            width: 100%;
+        }
+
+        /* MODAIS DINÂMICOS */
+        .modal {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: none; justify-content: center; align-items: center;
+            z-index: 1000; border-radius: 12px;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: #fff; padding: 40px; border-radius: 8px; width: 65%; 
+            box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.15);
+            position: relative; animation: modalIn 0.3s ease-out;
+        }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        .close-modal {
+            position: absolute; top: 15px; right: 20px; font-size: 24px; color: #999; cursor: pointer;
+        }
+        .close-modal:hover { color: #333; }
+
+        .modal-content h3 { font-size: 18px; text-transform: uppercase; margin: 0 0 15px 0; }
+        .modal-content p { font-size: 14px; line-height: 1.6; color: #444; text-align: justify; margin: 0; }
+        .modal-content strong { color: #222; }
+
+        /* RODAPÉ DO E-BOOK */
+        footer {
+            height: 70px; background-color: #f8f9fa; border-top: 1px solid #eaeaea;
+            border-radius: 0 0 12px 12px; display: flex; justify-content: space-between; align-items: center;
+            padding: 0 50px;
+        }
+
+        .logos { display: flex; align-items: center; gap: 20px; }
+        .logos img { height: 35px; opacity: 0.8; }
+
+        .nav-panel { display: flex; align-items: center; gap: 20px; }
+        .btn-nav {
+            background: none; border: 1px solid #ccc; border-radius: 4px;
+            padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase;
+            color: #555; cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; gap: 8px; text-decoration: none;
+        }
+        .btn-nav:hover { background-color: var(--azul); border-color: var(--azul); color: #fff; }
+        .num-pagina { font-size: 14px; font-weight: 700; color: #999; }
+
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        
+        <div class="content-area">
+            <header>
+                <div class="header-left">
+                    <h1>Camaçari na Mão</h1>
+                    <h2>Projeto de Governança Digital Participativa</h2>
+                </div>
+                <div class="header-right">
+                    Universidade Federal da Bahia<br>
+                    Adm & Econ + Empreendedorismo
+                </div>
+            </header>
+
+            <main>
+                <div class="card-info card-azul">
+                    <i class="fa-solid fa-city card-icon"></i>
+                    <h3>Contexto Urbano</h3>
+                    <p>Crescimento urbano acelerado e demandas concorrentes por infraestrutura em Camaçari.</p>
+                    <button onclick="abrirModal('modalContexto')" class="btn-card">Explorar</button>
+                </div>
+
+                <div class="card-info card-verde">
+                    <i class="fa-solid fa-network-wired card-icon"></i>
+                    <h3>Gestão Integrada</h3>
+                    <p>Unificando informações da SEDUR, SINFRA e SEFAZ em uma única plataforma.</p>
+                    <button onclick="abrirModal('modalEstrutura')" class="btn-card">Ver Estrutura</button>
+                </div>
+
+                <div class="card-info card-amarelo">
+                    <i class="fa-solid fa-graduation-cap card-icon"></i>
+                    <h3>Escopo Acadêmico</h3>
+                    <p>Veja os detalhes de entrega e natureza deste projeto acadêmico.</p>
+                    <button onclick="abrirModal('modalNatureza')" class="btn-card">Ler Natureza</button>
+                </div>
+            </main>
+        </div>
+
+        <footer>
+            <div class="logos">
+                <img src="ufba.png" alt="UFBA">
+                <img src="camacari.png" alt="Camaçari">
+            </div>
+
+            <div class="nav-panel">
+                <a onclick="mudarPagina('index.html')" class="btn-nav">
+                    <i class="fa-solid fa-chevron-left"></i> Anterior
+                </a>
+                <span class="num-pagina">02</span>
+                <a onclick="mudarPagina('pagina3.html')" class="btn-nav">
+                    Próxima <i class="fa-solid fa-chevron-right"></i>
+                </a>
+            </div>
+        </footer>
+
+        <div id="modalContexto" class="modal">
+            <div class="modal-content" style="border-left: 5px solid var(--azul);">
+                <span onclick="fecharModal('modalContexto')" class="close-modal"><i class="fa-solid fa-xmark"></i></span>
+                <h3 style="color: var(--azul);">O Problema da Gestão Isolada</h3>
+                <p>A fragmentação da governança torna-se um obstáculo crítico à eficiência municipal. Atualmente, a <strong>SEDUR</strong> pode autorizar o adensamento de um bairro sem que a <strong>SINFRA</strong> tenha planejado a expansão da rede de drenagem, ou a <strong>FAZENDA</strong> pode não ter previsão de arrecadação para sustentar essas obras. Essa desarticulação (efeito "silos") resulta em ineficiência, retrabalho e desperdício de recursos.</p>
+            </div>
+        </div>
+
+        <div id="modalEstrutura" class="modal">
+            <div class="modal-content" style="border-left: 5px solid var(--verde);">
+                <span onclick="fecharModal('modalEstrutura')" class="close-modal"><i class="fa-solid fa-xmark"></i></span>
+                <h3 style="color: var(--verde);">Interface da Gestão Integrada</h3>
+                <p>A plataforma cria um "Painel de Controle Integrado" onde as secretarias acessam a mesma base de dados em tempo real:</p>
+                <p><br><strong>• Módulo SEDUR:</strong> Recebe mapas de calor com as demandas urbanas para direcionar a revisão do Plano Diretor.</p>
+                <p><br><strong>• Módulo SINFRA:</strong> Transforma os mapas de calor em projetos de engenharia e cronogramas de execução.</p>
+                <p><br><strong>• Módulo FAZENDA:</strong> Cruza o custo dos projetos com a previsão de arrecadação (IPTU/ISS), atestando a viabilidade financeira antes do início das obras.</p>
+            </div>
+        </div>
+
+        <div id="modalNatureza" class="modal">
+            <div class="modal-content" style="border-left: 5px solid var(--amarelo);">
+                <span onclick="fecharModal('modalNatureza')" class="close-modal"><i class="fa-solid fa-xmark"></i></span>
+                <h3 style="color: #e6c12e;">Natureza do Trabalho</h3>
+                <p>Este material representa a Entrega Parcial de Desejabilidade (Etapa 1), correspondente à disciplina conjunta de Administração, Economia e Empreendedorismo da Universidade Federal da Bahia (UFBA). Foca-se no desenvolvimento de um projeto de governança digital participativa integrado à gestão municipal de Camaçari.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function mudarPagina(destino) {
+            document.body.classList.add('saindo');
+            setTimeout(function() { window.location.href = destino; }, 300);
+        }
+
+        function abrirModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        function fecharModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        // Fechar o modal ao clicar fora da caixa de conteúdo
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camaçari na Mão - Considerações Finais</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* AS 3 CORES DA PALETA CAMAÇARI NA MÃO */
+            --azul: #1a428a;
+            --verde: #009e49;
+            --amarelo: #FFDE59;
+            
+            --texto-base: #333;
+            --fundo-pagina: #e9ecef;
+            --fundo-app: #ffffff;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            height: 100%;
+            background-color: var(--fundo-pagina);
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; 
+            opacity: 0; animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-10px); } }
+        .saindo { animation: fadeOut 0.3s ease-in forwards !important; }
+
+        /* PADRÃO DE TAMANHO GERAL DO E-BOOK */
+        .page-container {
+            width: 100%;
+            max-width: 1100px;
+            height: 90vh;
+            background-color: var(--fundo-app);
+            box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            display: flex; flex-direction: column;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            padding: 40px 50px 20px 50px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        /* HEADER PADRÃO */
+        header {
+            display: flex; justify-content: space-between; align-items: start;
+            margin-bottom: 40px; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px;
+        }
+
+        .header-left h1 { font-size: 24px; font-weight: 700; color: var(--azul); text-transform: uppercase; margin: 0; }
+        .header-left h2 { font-size: 15px; font-weight: 400; color: #777; margin: 5px 0 0 0; }
+        .header-right { text-align: right; font-size: 12px; font-weight: 600; color: #555; text-transform: uppercase; }
+
+        /* LAYOUT DE CONCLUSÃO (ESQUERDA DESTAQUE / DIREITA TEXTO) */
+        .conclusao-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
+            flex-grow: 1;
+            align-items: center; /* Centraliza verticalmente */
+        }
+
+        /* DESTAQUE INSTITUCIONAL */
+        .card-destaque {
+            background-color: var(--azul);
+            border-radius: 12px;
+            padding: 40px 30px;
+            color: #fff;
+            box-shadow: 0px 10px 25px rgba(26, 66, 138, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ícone gigante e suave no fundo do card de destaque */
+        .card-destaque::after {
+            content: '\f19c'; /* Ícone de instituição do fontawesome */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: -20px;
+            bottom: -30px;
+            font-size: 150px;
+            opacity: 0.05;
+            color: #fff;
+        }
+
+        .card-destaque h3 {
+            color: var(--amarelo);
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-destaque p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 0;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* TEXTO DA DIREITA */
+        .texto-conclusao {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .texto-conclusao p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #444;
+            margin: 0;
+            text-align: justify;
+        }
+
+        .texto-conclusao p:first-child::first-letter {
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--verde);
+            float: left;
+            margin-right: 8px;
+            line-height: 1;
+        }
+
+        /* BOTÃO DE CURIOSIDADE */
+        .btn-curiosidade {
+            position: absolute;
+            bottom: 85px; 
+            left: 50px;
+            background-color: #fffdf5;
+            border: 2px solid var(--amarelo);
+            color: #d4ac0d;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(255, 222, 89, 0.2);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .btn-curiosidade:hover {
+            background-color: var(--amarelo);
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0px 6px 15px rgba(255, 222, 89, 0.4);
+        }
+
+        /* MODAL DA CURIOSIDADE */
+        .modal {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: none; justify-content: center; align-items: center;
+            z-index: 1000; border-radius: 12px;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: #fff; padding: 40px; border-radius: 8px; width: 60%; 
+            box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.15);
+            position: relative; animation: modalIn 0.3s ease-out;
+        }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        .close-modal {
+            position: absolute; top: 15px; right: 20px; font-size: 24px; color: #999; cursor: pointer;
+        }
+        .close-modal:hover { color: #333; }
+
+        .modal-content h3 { font-size: 18px; text-transform: uppercase; margin: 0 0 15px 0; }
+        .modal-content p { font-size: 14px; line-height: 1.6; color: #444; text-align: justify; margin: 0; }
+
+        /* RODAPÉ PADRÃO */
+        footer {
+            height: 70px; background-color: #f8f9fa; border-top: 1px solid #eaeaea;
+            border-radius: 0 0 12px 12px; display: flex; justify-content: space-between; align-items: center;
+            padding: 0 50px;
+        }
+
+        .logos { display: flex; align-items: center; gap: 20px; }
+        .logos img { height: 35px; opacity: 0.8; }
+
+        .nav-panel { display: flex; align-items: center; gap: 20px; }
+        .btn-nav {
+            background: none; border: 1px solid #ccc; border-radius: 4px;
+            padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase;
+            color: #555; cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; gap: 8px; text-decoration: none;
+        }
+        .btn-nav:hover { background-color: var(--azul); border-color: var(--azul); color: #fff; }
+        .btn-finalizar { background-color: var(--verde); color: #fff; border-color: var(--verde); }
+        .btn-finalizar:hover { background-color: #007a38; border-color: #007a38; }
+        .num-pagina { font-size: 14px; font-weight: 700; color: #999; }
+
+        .content-area::-webkit-scrollbar { width: 6px; }
+        .content-area::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        
+        <div class="content-area">
+            <header>
+                <div class="header-left">
+                    <h1>Considerações Finais</h1>
+                    <h2>O impacto institucional e o futuro de Camaçari</h2>
+                </div>
+                <div class="header-right">
+                    Universidade Federal da Bahia<br>
+                    Adm & Econ + Empreendedorismo
+                </div>
+            </header>
+
+            <main class="conclusao-grid">
+                
+                <div class="card-destaque">
+                    <h3><i class="fa-solid fa-bolt"></i> Mais que um App</h3>
+                    <p>O App "Camaçari na Mão" não é apenas uma ferramenta digital: é um <strong>instrumento de transformação institucional</strong> que ataca a raiz da governança fragmentada ao criar interoperabilidade obrigatória entre secretarias e participação estruturada da população.</p>
+                </div>
+
+                <div class="texto-conclusao">
+                    <p>Ao unir tecnologia, gestão integrada e escuta cidadã, o projeto posiciona Camaçari na vanguarda das cidades inteligentes e democráticas do Brasil.</p>
+                    
+                    <p>A solução proposta representa um salto qualitativo na maturidade de gestão pública municipal, alinhando Camaçari às melhores práticas internacionais de governo digital e fortalecendo o pacto democrático entre a administração e os cidadãos da sede.</p>
+                    
+                    <p>O sucesso deste projeto abrirá caminho para expansão progressiva a todos os distritos do município, consolidando Camaçari como referência estadual — e potencialmente nacional — em governança participativa digital.</p>
+                </div>
+
+            </main>
+        </div>
+
+        <button onclick="abrirCuriosidade()" class="btn-curiosidade">
+            <i class="fa-solid fa-lightbulb"></i> Curiosidade
+        </button>
+
+        <footer>
+            <div class="logos">
+                <img src="ufba.png" alt="UFBA">
+                <img src="camacari.png" alt="Camaçari">
+            </div>
+
+            <div class="nav-panel">
+                <a onclick="mudarPagina('pagina10.html')" class="btn-nav">
+                    <i class="fa-solid fa-chevron-left"></i> Anterior
+                </a>
+                <span class="num-pagina">11</span>
+                <a onclick="mudarPagina('index.html')" class="btn-nav btn-finalizar">
+                    Finalizar <i class="fa-solid fa-flag-checkered"></i>
+                </a>
+            </div>
+        </footer>
+
+        <div id="modalCuriosidade" class="modal">
+            <div class="modal-content" style="border-left: 5px solid var(--amarelo);">
+                <span onclick="fecharCuriosidade()" class="close-modal"><i class="fa-solid fa-xmark"></i></span>
+                <h3 style="color: #d4ac0d;"><i class="fa-solid fa-lightbulb"></i> O Futuro do Projeto</h3>
+                <p>O foco inicial deste projeto acadêmico é a <strong>Sede</strong> de Camaçari devido à alta densidade populacional e demandas concorrentes de infraestrutura. No entanto, a arquitetura do aplicativo foi pensada para ser facilmente expandida no futuro para toda a rica e extensa <strong>Orla de Camaçari</strong> (englobando distritos vitais como Arembepe, Guarajuba, Monte Gordo e Vila de Abrantes), conectando todo o município em uma única rede de governança!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function mudarPagina(destino) {
+            document.body.classList.add('saindo');
+            setTimeout(function() { window.location.href = destino; }, 300);
+        }
+
+        function abrirCuriosidade() {
+            document.getElementById('modalCuriosidade').style.display = 'flex';
+        }
+
+        function fecharCuriosidade() {
+            document.getElementById('modalCuriosidade').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

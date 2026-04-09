@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camaçari na Mão - E-book</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Remove margens padrão do navegador e ajusta o fundo (SEU CÓDIGO ORIGINAL) */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #f4f4f9; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', Arial, sans-serif;
+            
+            /* ANIMAÇÃO DE ENTRADA */
+            opacity: 0; 
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* ANIMAÇÕES DE TRANSIÇÃO */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-10px); } }
+        .saindo { animation: fadeOut 0.3s ease-in forwards !important; }
+
+        /* Container que segura a imagem da capa (SEU CÓDIGO ORIGINAL) */
+        .capa-container {
+            width: 100%;
+            max-width: 800px; /* Limita a largura */
+            height: 85vh; /* Ocupa 85% da altura da tela */
+            text-align: center;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2); 
+            background-color: white;
+            overflow: hidden;
+            border-radius: 8px; 
+        }
+
+        /* Configuração da imagem da capa */
+        .imagem-capa {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: top center;
+        }
+
+        /* Estilo do botão interativo (SEU CÓDIGO ORIGINAL) */
+        .botao-proxima {
+            margin-top: 25px;
+            padding: 15px 40px;
+            background-color: #FFDE59; 
+            color: #000;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 50px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Efeito de passar o mouse no botão */
+        .botao-proxima:hover {
+            background-color: #e6c84f;
+            transform: translateY(-2px); 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="capa-container">
+        <img src="capa.png" alt="Capa Camaçari na Mão" class="imagem-capa">
+    </div>
+
+    <a onclick="mudarPagina('pagina2.html')" class="botao-proxima">
+        Acessar E-book <i class="fa-solid fa-arrow-right-to-bracket" style="margin-left: 8px;"></i>
+    </a>
+
+    <script>
+        function mudarPagina(destino) {
+            // Adiciona a classe que faz a tela desaparecer suavemente
+            document.body.classList.add('saindo');
+            // Aguarda 300 milissegundos e redireciona para a página 2
+            setTimeout(function() { window.location.href = destino; }, 300);
+        }
+    </script>
+
+</body>
+</html>

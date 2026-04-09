@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camaçari na Mão - Objetivos</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* AS 3 CORES DA PALETA CAMAÇARI NA MÃO */
+            --azul: #1a428a;
+            --verde: #009e49;
+            --amarelo: #FFDE59;
+            
+            --texto-base: #333;
+            --fundo-pagina: #e9ecef;
+            --fundo-app: #ffffff;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            height: 100%;
+            background-color: var(--fundo-pagina);
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; 
+            opacity: 0; animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-10px); } }
+        .saindo { animation: fadeOut 0.3s ease-in forwards !important; }
+
+        /* PADRÃO DE TAMANHO GERAL DO E-BOOK */
+        .page-container {
+            width: 100%;
+            max-width: 1100px;
+            height: 90vh;
+            background-color: var(--fundo-app);
+            box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            display: flex; flex-direction: column;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            padding: 40px 50px 20px 50px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        /* HEADER PADRÃO */
+        header {
+            display: flex; justify-content: space-between; align-items: start;
+            margin-bottom: 30px; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px;
+        }
+
+        .header-left h1 { font-size: 24px; font-weight: 700; color: var(--azul); text-transform: uppercase; margin: 0; }
+        .header-left h2 { font-size: 15px; font-weight: 400; color: #777; margin: 5px 0 0 0; }
+        .header-right { text-align: right; font-size: 12px; font-weight: 600; color: #555; text-transform: uppercase; }
+
+        /* LAYOUT DOS OBJETIVOS */
+        .objetivos-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            flex-grow: 1;
+        }
+
+        /* BANNER: OBJETIVO GERAL */
+        .obj-geral {
+            background-color: #f4f7fb;
+            border-left: 6px solid var(--azul);
+            border-radius: 8px;
+            padding: 25px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .obj-geral i {
+            font-size: 45px;
+            color: var(--azul);
+        }
+
+        .obj-geral h3 {
+            margin: 0 0 8px 0;
+            color: var(--azul);
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+
+        .obj-geral p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #444;
+            text-align: justify;
+        }
+
+        /* TÍTULO DA SEÇÃO ESPECÍFICA */
+        .titulo-especificos {
+            font-size: 16px;
+            color: #333;
+            margin: 10px 0 0 0;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .titulo-especificos::after {
+            content: "";
+            flex-grow: 1;
+            height: 1px;
+            background-color: #eaeaea;
+        }
+
+        /* GRID: OBJETIVOS ESPECÍFICOS */
+        .grid-especificos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 Colunas */
+            gap: 20px;
+        }
+
+        .card-esp {
+            background-color: #fff;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .card-esp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.06);
+        }
+
+        .card-esp i {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .card-esp h4 {
+            margin: 0 0 8px 0;
+            font-size: 15px;
+            color: #222;
+        }
+
+        .card-esp p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        /* Cores dos Cartões Específicos */
+        .esp-verde { border-top: 4px solid var(--verde); }
+        .esp-verde i { color: var(--verde); }
+        
+        .esp-amarelo { border-top: 4px solid var(--amarelo); }
+        .esp-amarelo i { color: #d4ac0d; }
+
+        .esp-azul { border-top: 4px solid var(--azul); }
+        .esp-azul i { color: var(--azul); }
+
+        /* RODAPÉ PADRÃO */
+        footer {
+            height: 70px; background-color: #f8f9fa; border-top: 1px solid #eaeaea;
+            border-radius: 0 0 12px 12px; display: flex; justify-content: space-between; align-items: center;
+            padding: 0 50px;
+        }
+
+        .logos { display: flex; align-items: center; gap: 20px; }
+        .logos img { height: 35px; opacity: 0.8; }
+
+        .nav-panel { display: flex; align-items: center; gap: 20px; }
+        .btn-nav {
+            background: none; border: 1px solid #ccc; border-radius: 4px;
+            padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase;
+            color: #555; cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; gap: 8px; text-decoration: none;
+        }
+        .btn-nav:hover { background-color: var(--azul); border-color: var(--azul); color: #fff; }
+        .num-pagina { font-size: 14px; font-weight: 700; color: #999; }
+
+        .content-area::-webkit-scrollbar { width: 6px; }
+        .content-area::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        
+        <div class="content-area">
+            <header>
+                <div class="header-left">
+                    <h1>Objetivos do Projeto</h1>
+                    <h2>O que queremos alcançar com o Camaçari na Mão</h2>
+                </div>
+                <div class="header-right">
+                    Universidade Federal da Bahia<br>
+                    Adm & Econ + Empreendedorismo
+                </div>
+            </header>
+
+            <main class="objetivos-container">
+                
+                <div class="obj-geral">
+                    <i class="fa-solid fa-bullseye"></i>
+                    <div>
+                        <h3>Objetivo Geral</h3>
+                        <p>Implementar uma plataforma digital interativa para a sede de Camaçari que unifique as demandas de infraestrutura e urbanismo da população com o planejamento orçamentário integrado das secretarias (SEDUR, SEINFRA e SEFAZ).</p>
+                    </div>
+                </div>
+
+                <h3 class="titulo-especificos">Objetivos Específicos</h3>
+
+                <div class="grid-especificos">
+                    
+                    <div class="card-esp esp-verde">
+                        <i class="fa-solid fa-users"></i>
+                        <h4>Participação Cidadã</h4>
+                        <p>Permitir que cidadãos sugiram, votem e fiscalizem obras de infraestrutura e urbanismo diretamente via smartphone.</p>
+                    </div>
+
+                    <div class="card-esp esp-amarelo">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <h4>Painel Integrado</h4>
+                        <p>Criar um "Painel de Controle" (Dashboard) onde a SEDUR, SEINFRA e SEFAZ acessem a mesma base de dados em tempo real.</p>
+                    </div>
+
+                    <div class="card-esp esp-azul">
+                        <i class="fa-solid fa-stopwatch"></i>
+                        <h4>Agilidade Pública</h4>
+                        <p>Reduzir em 30% o tempo de aprovação e licitação de obras solicitadas pela comunidade no primeiro ano de uso.</p>
+                    </div>
+
+                    <div class="card-esp esp-verde">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                        <h4>Engajamento Social</h4>
+                        <p>Aumentar em 500% o número de cidadãos participantes do orçamento municipal em comparação às audiências presenciais.</p>
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+
+        <footer>
+            <div class="logos">
+                <img src="ufba.png" alt="UFBA">
+                <img src="camacari.png" alt="Camaçari">
+            </div>
+
+            <div class="nav-panel">
+                <a onclick="mudarPagina('pagina5.html')" class="btn-nav">
+                    <i class="fa-solid fa-chevron-left"></i> Anterior
+                </a>
+                <span class="num-pagina">06</span>
+                <a onclick="mudarPagina('pagina7.html')" class="btn-nav">
+                    Próxima <i class="fa-solid fa-chevron-right"></i>
+                </a>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        function mudarPagina(destino) {
+            document.body.classList.add('saindo');
+            setTimeout(function() { window.location.href = destino; }, 300);
+        }
+    </script>
+
+</body>
+</html>

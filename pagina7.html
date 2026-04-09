@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camaçari na Mão - Escopo do Projeto</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* AS 3 CORES DA PALETA CAMAÇARI NA MÃO */
+            --azul: #1a428a;
+            --verde: #009e49;
+            --amarelo: #FFDE59;
+            
+            --texto-base: #333;
+            --fundo-pagina: #e9ecef;
+            --fundo-app: #ffffff;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            height: 100%;
+            background-color: var(--fundo-pagina);
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; 
+            opacity: 0; animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-10px); } }
+        .saindo { animation: fadeOut 0.3s ease-in forwards !important; }
+
+        /* PADRÃO DE TAMANHO GERAL DO E-BOOK */
+        .page-container {
+            width: 100%;
+            max-width: 1100px;
+            height: 90vh;
+            background-color: var(--fundo-app);
+            box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            display: flex; flex-direction: column;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            padding: 40px 50px 20px 50px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        /* HEADER PADRÃO */
+        header {
+            display: flex; justify-content: space-between; align-items: start;
+            margin-bottom: 30px; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px;
+        }
+
+        .header-left h1 { font-size: 24px; font-weight: 700; color: var(--azul); text-transform: uppercase; margin: 0; }
+        .header-left h2 { font-size: 15px; font-weight: 400; color: #777; margin: 5px 0 0 0; }
+        .header-right { text-align: right; font-size: 12px; font-weight: 600; color: #555; text-transform: uppercase; }
+
+        /* LAYOUT DE ESCOPO - DUAS COLUNAS */
+        .escopo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            flex-grow: 1;
+        }
+
+        .coluna-escopo {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .titulo-coluna {
+            font-size: 16px;
+            color: var(--azul);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 10px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #eaeaea;
+        }
+
+        .titulo-coluna i { font-size: 20px; }
+
+        /* CARTÕES DE MÓDULOS */
+        .modulo-card {
+            background-color: #fafafa;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.02);
+            border-left: 5px solid transparent;
+        }
+
+        .modulo-card:hover {
+            transform: translateX(5px);
+            background-color: #fff;
+            box-shadow: 0px 6px 15px rgba(0,0,0,0.06);
+        }
+
+        .modulo-icone {
+            font-size: 26px;
+            width: 35px;
+            text-align: center;
+        }
+
+        .modulo-texto {
+            flex-grow: 1;
+        }
+
+        .modulo-texto h4 {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+            font-weight: 700;
+            color: #222;
+            text-transform: uppercase;
+        }
+
+        .modulo-texto p {
+            margin: 0;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        /* CORES POR MÓDULO (Aplicando a Paleta) */
+        .mod-azul { border-left-color: var(--azul); }
+        .mod-azul .modulo-icone { color: var(--azul); }
+        
+        .mod-verde { border-left-color: var(--verde); }
+        .mod-verde .modulo-icone { color: var(--verde); }
+        
+        .mod-amarelo { border-left-color: var(--amarelo); }
+        .mod-amarelo .modulo-icone { color: #d4ac0d; }
+
+        /* RODAPÉ PADRÃO */
+        footer {
+            height: 70px; background-color: #f8f9fa; border-top: 1px solid #eaeaea;
+            border-radius: 0 0 12px 12px; display: flex; justify-content: space-between; align-items: center;
+            padding: 0 50px;
+        }
+
+        .logos { display: flex; align-items: center; gap: 20px; }
+        .logos img { height: 35px; opacity: 0.8; }
+
+        .nav-panel { display: flex; align-items: center; gap: 20px; }
+        .btn-nav {
+            background: none; border: 1px solid #ccc; border-radius: 4px;
+            padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase;
+            color: #555; cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; gap: 8px; text-decoration: none;
+        }
+        .btn-nav:hover { background-color: var(--azul); border-color: var(--azul); color: #fff; }
+        .num-pagina { font-size: 14px; font-weight: 700; color: #999; }
+
+        .content-area::-webkit-scrollbar { width: 6px; }
+        .content-area::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 10px; }
+
+        /* ===== ADIÇÕES DA CURIOSIDADE ===== */
+        .btn-curiosidade {
+            position: absolute;
+            bottom: 79px; /* Acima do rodapé de 70px */
+            left: 50px;   /* Alinhado com o padding */
+            background-color: #fffdf5;
+            border: 2px solid var(--amarelo);
+            color: #d4ac0d;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(255, 222, 89, 0.2);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .btn-curiosidade:hover {
+            background-color: var(--amarelo);
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0px 6px 15px rgba(255, 222, 89, 0.4);
+        }
+
+        /* MODAL DINÂMICO PARA A CURIOSIDADE */
+        .modal {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: none; justify-content: center; align-items: center;
+            z-index: 1000; border-radius: 12px;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: #fff; padding: 40px; border-radius: 8px; width: 60%; 
+            box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.15);
+            position: relative; animation: modalIn 0.3s ease-out;
+        }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        .close-modal {
+            position: absolute; top: 15px; right: 20px; font-size: 24px; color: #999; cursor: pointer;
+        }
+        .close-modal:hover { color: #333; }
+
+        .modal-content h3 { font-size: 18px; text-transform: uppercase; margin: 0 0 15px 0; }
+        .modal-content p { font-size: 14px; line-height: 1.6; color: #444; text-align: justify; margin: 0; }
+        /* ================================== */
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        
+        <div class="content-area">
+            <header>
+                <div class="header-left">
+                    <h1>O Escopo do Projeto</h1>
+                    <h2>As duas frentes do App Camaçari na Mão</h2>
+                </div>
+                <div class="header-right">
+                    Universidade Federal da Bahia<br>
+                    Adm & Econ + Empreendedorismo
+                </div>
+            </header>
+
+            <main class="escopo-grid">
+                
+                <div class="coluna-escopo">
+                    <h3 class="titulo-coluna">
+                        <i class="fa-solid fa-mobile-screen"></i> Interface do Cidadão (Mobile)
+                    </h3>
+
+                    <div class="modulo-card mod-azul">
+                        <i class="fa-solid fa-map-location-dot modulo-icone"></i>
+                        <div class="modulo-texto">
+                            <h4>Módulo "Minha Rua"</h4>
+                            <p>O usuário aponta no mapa problemas locais, como buracos, falta de iluminação ou necessidade de praças.</p>
+                        </div>
+                    </div>
+
+                    <div class="modulo-card mod-verde">
+                        <i class="fa-solid fa-check-to-slot modulo-icone"></i>
+                        <div class="modulo-texto">
+                            <h4>Decide Camaçari (Orçamento)</h4>
+                            <p>Durante 30 dias do ano, a prefeitura libera um teto orçamentário. O cidadão vota nas obras prioritárias listadas pela comunidade.</p>
+                        </div>
+                    </div>
+
+                    <div class="modulo-card mod-amarelo">
+                        <i class="fa-solid fa-magnifying-glass-chart modulo-icone"></i>
+                        <div class="modulo-texto">
+                            <h4>Transparência e Obras</h4>
+                            <p>Acompanhamento em tempo real do status das obras: em licitação, em execução ou paralisada (com justificativa técnica).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="coluna-escopo">
+                    <h3 class="titulo-coluna" style="color: var(--verde);">
+                        <i class="fa-solid fa-desktop"></i> Interface da Gestão (Dashboard)
+                    </h3>
+
+                    <div class="modulo-card mod-azul">
+                        <i class="fa-solid fa-building-user modulo-icone"></i>
+                        <div class="modulo-texto">
+                            <h4>Módulo SEDUR</h4>
+                            <p>Recebe os mapas de calor com as demandas urbanas mais votadas para direcionar licenças e a revisão do Plano Diretor.</p>
+                        </div>
+                    </div>
+
+                    <div class="modulo-card mod-verde">
+                        <i class="fa-solid fa-helmet-safety modulo-icone"></i>
+                        <div class="modulo-texto">
+                            <h4>Módulo SEINFRA</h4>
+                            <p>Transforma os mapas de calor (aprovados no orçamento) em projetos de engenharia reais e cronogramas de execução.</p>
+                        </div>
+                    </div>
+
+                    <div class="modulo-card mod-amarelo">
+                        <i class="fa-solid fa-file-invoice-dollar modulo-icone"></i>
+                        <div class="modulo-texto">
+                            <h4>Módulo SEFAZ</h4>
+                            <p>Cruza o custo dos projetos com a previsão de arrecadação (IPTU/ISS) da região, atestando a viabilidade financeira antes do início.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
+        <button onclick="abrirCuriosidade()" class="btn-curiosidade">
+            <i class="fa-solid fa-lightbulb"></i> Curiosidade
+        </button>
+
+        <footer>
+            <div class="logos">
+                <img src="ufba.png" alt="UFBA">
+                <img src="camacari.png" alt="Camaçari">
+            </div>
+
+            <div class="nav-panel">
+                <a onclick="mudarPagina('pagina6.html')" class="btn-nav">
+                    <i class="fa-solid fa-chevron-left"></i> Anterior
+                </a>
+                <span class="num-pagina">07</span>
+                <a onclick="mudarPagina('pagina8.html')" class="btn-nav">
+                    Próxima <i class="fa-solid fa-chevron-right"></i>
+                </a>
+            </div>
+        </footer>
+
+        <div id="modalCuriosidade" class="modal">
+            <div class="modal-content" style="border-left: 5px solid var(--amarelo);">
+                <span onclick="fecharCuriosidade()" class="close-modal"><i class="fa-solid fa-xmark"></i></span>
+                <h3 style="color: #d4ac0d;"><i class="fa-solid fa-lightbulb"></i> Você Sabia?</h3>
+                <p>A integração de dados entre secretarias (como projeta o Dashboard da gestão) é o pilar principal das chamadas <strong>Cidades Inteligentes (Smart Cities)</strong>. Municípios que adotaram centros de operações integrados conseguiram reduzir o tempo de resposta a problemas urbanos em até 30% e cortaram gastos consideráveis com obras duplicadas ou mal planejadas!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function mudarPagina(destino) {
+            document.body.classList.add('saindo');
+            setTimeout(function() { window.location.href = destino; }, 300);
+        }
+
+        // Funções para o modal de curiosidade
+        function abrirCuriosidade() {
+            document.getElementById('modalCuriosidade').style.display = 'flex';
+        }
+
+        function fecharCuriosidade() {
+            document.getElementById('modalCuriosidade').style.display = 'none';
+        }
+
+        // Fechar o modal ao clicar fora da área de conteúdo
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
